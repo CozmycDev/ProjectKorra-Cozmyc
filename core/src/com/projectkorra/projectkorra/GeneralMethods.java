@@ -1576,26 +1576,20 @@ public class GeneralMethods {
 		event.getAffected().setVelocity(velocity);
 	}
 
+	// no longer used, but updated to match the 26.x pattern anyways
 	public static int getMCVersion() {
 		String version = Bukkit.getBukkitVersion().split("-", 2)[0];
+
 		if (!version.matches("\\d+\\.\\d+(\\.\\d+)?")) {
 			ProjectKorra.log.warning("Version not valid! Cannot parse version \"" + version + "\"");
-			return 1164; //1.16.4
+			return 1164;
 		}
 
-		String[] split = version.split("\\.", 3);
-
+		String[] split = version.split("\\.");
 		int major = Integer.parseInt(split[0]);
-		int minor = 0;
-		int fix = 0;
+		int minor = Integer.parseInt(split[1]);
+		int fix = (split.length == 3) ? Integer.parseInt(split[2]) : 0;
 
-		if (split.length > 1) {
-			minor = Integer.parseInt(split[1]);
-
-			if (split.length > 2) {
-				fix = Integer.parseInt(split[2]);
-			}
-		}
-		return major * 1000 + minor * 10 + fix; //1.16.4 -> 1164; 1.18 -> 1180
+		return major * 1000 + minor * 10 + fix;
 	}
 }

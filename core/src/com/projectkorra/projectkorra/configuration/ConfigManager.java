@@ -107,11 +107,11 @@ public class ConfigManager {
 			config.addDefault("Board.Prefix.NonSelectedColor", ChatColor.DARK_GRAY.getName());
 			config.addDefault("Board.EmptySlot", "&8-- Slot {slot_number} --");
 			config.addDefault("Board.MiscSeparator", "  ----------");
-			
+
 			if (!config.contains("Board.Extras")) {
-			    config.addDefault("Board.Extras.RaiseEarthWall", Element.EARTH.getColor().getName());
-			    config.addDefault("Board.Extras.SurgeWave", Element.WATER.getColor().getName());
-			    config.addDefault("Board.Extras.SpoutHop", Element.WATER.getColor().getName());
+				config.addDefault("Board.Extras.RaiseEarthWall", Element.EARTH.getColor().getName());
+				config.addDefault("Board.Extras.SurgeWave", Element.WATER.getColor().getName());
+				config.addDefault("Board.Extras.SpoutHop", Element.WATER.getColor().getName());
 				config.addDefault("Board.Extras.IceSpikeField", Element.ICE.getColor().getName());
 			}
 
@@ -394,16 +394,16 @@ public class ConfigManager {
 			config.addDefault("Abilities.Air.AirSwipe.DeathMessage", "{victim} was struck by {attacker}'s {ability}");
 			config.addDefault("Abilities.Air.Flight.Description", "Fly through the air as Zaheer and Guru Laghima did! This multiability allows for three modes of flight: soaring, gliding, and levitating. You can also right-click another player while flying to have them become your passenger! When flying at fast speeds, flying past nearby enemies will damage them for half your speed and knock them in the direction you're heading!");
 			config.addDefault("Abilities.Air.Flight.Instructions", "\n- (To start flying, jump and left-click)\n- (Soar) Left-Click to change flying speeds.\n- (Glide) Normal minecraft gliding. Slowing down or speeding up in this mode will affect the Soar speed.\n- (Levitate) Basically minecraft flying, allowing players to fly around for building purposes or a more controlled 'hovering'.\n- (Ending) Being in this mode sets any gliding and flight back the the state they were before using the ability.");
-            config.addDefault("Abilities.Air.Flight.OnlyRequestLevitating", "Can only request to carry when levitating!");
-            config.addDefault("Abilities.Air.Flight.AlreadyHavePassenger", "You already have a passenger!");
-            config.addDefault("Abilities.Air.Flight.CannotRequestAlreadyFlyingPlayer", "Cannot request to carry an already flying player!");
-            config.addDefault("Abilities.Air.Flight.CarryAlreadyRequest", "Already requested to carry that player!");
-            config.addDefault("Abilities.Air.Flight.PassengerRequest", "Requested to carry {target}");
-            config.addDefault("Abilities.Air.Flight.RequestedPlayerNoLongerFound", "Requested player no longer found, cancelling request!");
-            config.addDefault("Abilities.Air.Flight.PlayerRequest", "{target} has requested to carry you, right-click them to accept!");
-            config.addDefault("Abilities.Air.Flight.CarryRequestAccepted", "{target} has accepted your carry request!");
-            config.addDefault("Abilities.Air.Flight.FlightCancelledReason", "* Flight cancelled due to {reason} *");
-            config.addDefault("Abilities.Air.Suffocate.Description", "This ability is one of the most dangerous abilities an Airbender possesses. Although it is difficult to perform, it's extremely deadly once the ability starts, making it difficult for enemies to escape.");
+			config.addDefault("Abilities.Air.Flight.OnlyRequestLevitating", "Can only request to carry when levitating!");
+			config.addDefault("Abilities.Air.Flight.AlreadyHavePassenger", "You already have a passenger!");
+			config.addDefault("Abilities.Air.Flight.CannotRequestAlreadyFlyingPlayer", "Cannot request to carry an already flying player!");
+			config.addDefault("Abilities.Air.Flight.CarryAlreadyRequest", "Already requested to carry that player!");
+			config.addDefault("Abilities.Air.Flight.PassengerRequest", "Requested to carry {target}");
+			config.addDefault("Abilities.Air.Flight.RequestedPlayerNoLongerFound", "Requested player no longer found, cancelling request!");
+			config.addDefault("Abilities.Air.Flight.PlayerRequest", "{target} has requested to carry you, right-click them to accept!");
+			config.addDefault("Abilities.Air.Flight.CarryRequestAccepted", "{target} has accepted your carry request!");
+			config.addDefault("Abilities.Air.Flight.FlightCancelledReason", "* Flight cancelled due to {reason} *");
+			config.addDefault("Abilities.Air.Suffocate.Description", "This ability is one of the most dangerous abilities an Airbender possesses. Although it is difficult to perform, it's extremely deadly once the ability starts, making it difficult for enemies to escape.");
 			config.addDefault("Abilities.Air.Suffocate.Instructions", "Hold sneak while looking at a target to begin suffocating them. If the target goes out of range, you get damaged, or you release sneak, the ability will cancel.");
 			config.addDefault("Abilities.Air.Suffocate.DeathMessage", "{victim} was asphyxiated by {attacker}'s {ability}");
 			config.addDefault("Abilities.Air.Combo.Twister.Description", "Create a cyclone of air that travels along the ground grabbing nearby entities.");
@@ -686,18 +686,15 @@ public class ConfigManager {
 
 			/* Dry biomes for FrostBreath */
 			final List<String> dryBiomes = new ArrayList<>();
-			dryBiomes.add(Biome.DESERT.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.BADLANDS.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.ERODED_BADLANDS.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.WOODED_BADLANDS.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.SAVANNA.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.SAVANNA_PLATEAU.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.WINDSWEPT_SAVANNA.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.BASALT_DELTAS.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.CRIMSON_FOREST.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.WARPED_FOREST.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.NETHER_WASTES.getKeyOrThrow().getKey());
-			dryBiomes.add(Biome.SOUL_SAND_VALLEY.getKeyOrThrow().getKey());
+			Biome[] biomes = {
+					Biome.DESERT, Biome.BADLANDS, Biome.ERODED_BADLANDS, Biome.WOODED_BADLANDS,
+					Biome.SAVANNA, Biome.SAVANNA_PLATEAU, Biome.WINDSWEPT_SAVANNA, Biome.BASALT_DELTAS,
+					Biome.CRIMSON_FOREST, Biome.WARPED_FOREST, Biome.NETHER_WASTES, Biome.SOUL_SAND_VALLEY
+			};
+
+			for (Biome biome : biomes) {
+				dryBiomes.add(((org.bukkit.Keyed) biome).getKey().getKey());
+			}
 
 			final List<String> plantBlocks = new ArrayList<>();
 			plantBlocks.add("#bee_growables");
@@ -792,7 +789,7 @@ public class ConfigManager {
 			config.addDefault("Properties.Air.CanBendWithWeapons", false);
 			config.addDefault("Properties.Air.Particles", Particle.EFFECT.name());
 			config.addDefault("Properties.Air.PlaySound", true);
-			config.addDefault("Properties.Air.Sound.Sound", Sound.ENTITY_CREEPER_HURT.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Air.Sound.Sound", ((org.bukkit.Keyed) Sound.ENTITY_CREEPER_HURT).getKey().getKey());
 			config.addDefault("Properties.Air.Sound.Volume", 1);
 			config.addDefault("Properties.Air.Sound.Pitch", 2);
 
@@ -806,16 +803,16 @@ public class ConfigManager {
 			// config.addDefault("Properties.Water.TransformableBlocks", waterTransformableBlocks);
 			config.addDefault("Properties.Water.NightFactor", 1.25);
 			config.addDefault("Properties.Water.PlaySound", true);
-			config.addDefault("Properties.Water.WaterSound.Sound", Sound.BLOCK_WATER_AMBIENT.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Water.WaterSound.Sound", ((org.bukkit.Keyed) Sound.BLOCK_WATER_AMBIENT).getKey().getKey());
 			config.addDefault("Properties.Water.WaterSound.Volume", 1);
 			config.addDefault("Properties.Water.WaterSound.Pitch", 1);
-			config.addDefault("Properties.Water.IceSound.Sound", Sound.ITEM_FLINTANDSTEEL_USE.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Water.IceSound.Sound", ((org.bukkit.Keyed) Sound.ITEM_FLINTANDSTEEL_USE).getKey().getKey());
 			config.addDefault("Properties.Water.IceSound.Volume", 1);
 			config.addDefault("Properties.Water.IceSound.Pitch", 1);
-			config.addDefault("Properties.Water.PlantSound.Sound", Sound.BLOCK_GRASS_STEP.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Water.PlantSound.Sound", ((org.bukkit.Keyed) Sound.BLOCK_GRASS_STEP).getKey().getKey());
 			config.addDefault("Properties.Water.IceSound.Volume", 1);
 			config.addDefault("Properties.Water.IceSound.Pitch", 1);
-			config.addDefault("Properties.Water.MudSound.Sound", Sound.BLOCK_MUD_STEP.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Water.MudSound.Sound", ((org.bukkit.Keyed) Sound.BLOCK_MUD_STEP).getKey().getKey());
 			config.addDefault("Properties.Water.MudSound.Volume", 1);
 			config.addDefault("Properties.Water.MudSound.Pitch", 1);
 
@@ -829,19 +826,19 @@ public class ConfigManager {
 			config.addDefault("Properties.Earth.SandBlocks", sandBlocks);
 			config.addDefault("Properties.Earth.MetalPowerFactor", 1.5);
 			config.addDefault("Properties.Earth.PlaySound", true);
-			config.addDefault("Properties.Earth.EarthSound.Sound", Sound.ENTITY_GHAST_SHOOT.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Earth.EarthSound.Sound", ((org.bukkit.Keyed) Sound.ENTITY_GHAST_SHOOT).getKey().getKey());
 			config.addDefault("Properties.Earth.EarthSound.Volume", 1);
 			config.addDefault("Properties.Earth.EarthSound.Pitch", 1);
-			config.addDefault("Properties.Earth.MetalSound.Sound", Sound.ENTITY_IRON_GOLEM_HURT.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Earth.MetalSound.Sound", ((org.bukkit.Keyed) Sound.ENTITY_IRON_GOLEM_HURT).getKey().getKey());
 			config.addDefault("Properties.Earth.MetalSound.Volume", 1);
 			config.addDefault("Properties.Earth.MetalSound.Pitch", 1.25);
-			config.addDefault("Properties.Earth.SandSound.Sound", Sound.BLOCK_SAND_BREAK.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Earth.SandSound.Sound", ((org.bukkit.Keyed) Sound.BLOCK_SAND_BREAK).getKey().getKey());
 			config.addDefault("Properties.Earth.SandSound.Volume", 1);
 			config.addDefault("Properties.Earth.SandSound.Pitch", 1);
-			config.addDefault("Properties.Earth.LavaSound.Sound", Sound.BLOCK_LAVA_AMBIENT.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Earth.LavaSound.Sound", ((org.bukkit.Keyed) Sound.BLOCK_LAVA_AMBIENT).getKey().getKey());
 			config.addDefault("Properties.Earth.LavaSound.Volume", 1);
 			config.addDefault("Properties.Earth.LavaSound.Pitch", 1);
-			config.addDefault("Properties.Earth.MudSound.Sound", Sound.BLOCK_MUD_PLACE.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Earth.MudSound.Sound", ((org.bukkit.Keyed) Sound.BLOCK_MUD_PLACE).getKey().getKey());
 			config.addDefault("Properties.Earth.MudSound.Volume", 1);
 			config.addDefault("Properties.Earth.MudSound.Pitch", 1);
 
@@ -850,19 +847,19 @@ public class ConfigManager {
 			config.addDefault("Properties.Fire.PlaySound", true);
 			config.addDefault("Properties.Fire.FireGriefing", false);
 			config.addDefault("Properties.Fire.RevertTicks", 12000L);
-			config.addDefault("Properties.Fire.FireSound.Sound", Sound.BLOCK_FIRE_AMBIENT.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Fire.FireSound.Sound", ((org.bukkit.Keyed) Sound.BLOCK_FIRE_AMBIENT).getKey().getKey());
 			config.addDefault("Properties.Fire.FireSound.Volume", 1);
 			config.addDefault("Properties.Fire.FireSound.Pitch", 1);
-			config.addDefault("Properties.Fire.CombustionSound.Sound", Sound.ENTITY_FIREWORK_ROCKET_BLAST.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Fire.CombustionSound.Sound", ((org.bukkit.Keyed) Sound.ENTITY_FIREWORK_ROCKET_BLAST).getKey().getKey());
 			config.addDefault("Properties.Fire.CombustionSound.Volume", 1);
 			config.addDefault("Properties.Fire.CombustionSound.Pitch", 0);
-			config.addDefault("Properties.Fire.LightningSound.Sound", Sound.ENTITY_CREEPER_HURT.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Fire.LightningSound.Sound", ((org.bukkit.Keyed) Sound.ENTITY_CREEPER_HURT).getKey().getKey());
 			config.addDefault("Properties.Fire.LightningSound.Volume", 1);
 			config.addDefault("Properties.Fire.LightningSound.Pitch", 0);
-			config.addDefault("Properties.Fire.LightningCharge.Sound", Sound.BLOCK_BEEHIVE_WORK.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Fire.LightningCharge.Sound", ((org.bukkit.Keyed) Sound.BLOCK_BEEHIVE_WORK).getKey().getKey());
 			config.addDefault("Properties.Fire.LightningCharge.Volume", 2);
 			config.addDefault("Properties.Fire.LightningCharge.Pitch", .5);
-			config.addDefault("Properties.Fire.LightningHit.Sound", Sound.ENTITY_LIGHTNING_BOLT_THUNDER.getKeyOrThrow().getKey());
+			config.addDefault("Properties.Fire.LightningHit.Sound", ((org.bukkit.Keyed) Sound.ENTITY_LIGHTNING_BOLT_THUNDER).getKey().getKey());
 			config.addDefault("Properties.Fire.LightningHit.Volume", 1);
 			config.addDefault("Properties.Fire.LightningHit.Pitch", 2);
 			config.addDefault("Properties.Fire.BlueFire.DamageFactor", 1.1);
@@ -1045,7 +1042,7 @@ public class ConfigManager {
 			config.addDefault("Abilities.Water.Bloodbending.Cooldown", 3000);
 			config.addDefault("Abilities.Water.Bloodbending.CanOnlyBeUsedDuringFullMoon", true);
 			config.addDefault("Abilities.Water.Bloodbending.CanBloodbendOtherBloodbenders", false);
-			
+
 			List<String> bloodless = new ArrayList<>();
 			bloodless.add(EntityType.SKELETON.name());
 			bloodless.add(EntityType.IRON_GOLEM.name());
@@ -1055,7 +1052,7 @@ public class ConfigManager {
 			bloodless.add(EntityType.SKELETON_HORSE.name());
 			bloodless.add(EntityType.WITHER_SKELETON.name());
 			bloodless.add(EntityType.STRAY.name());
-			
+
 			config.addDefault("Abilities.Water.Bloodbending.Bloodless", bloodless);
 
 			config.addDefault("Abilities.Water.HealingWaters.Enabled", true);
@@ -1753,7 +1750,7 @@ public class ConfigManager {
 			config.addDefault("AvatarState.PlaySound", true);
 			config.addDefault("AvatarState.ShowParticles", true);
 			config.addDefault("AvatarState.GlowEnabled", false);
-			config.addDefault("AvatarState.Sound.Sound", Sound.BLOCK_BEACON_ACTIVATE.getKeyOrThrow().getKey());
+			config.addDefault("AvatarState.Sound.Sound", ((org.bukkit.Keyed) Sound.BLOCK_BEACON_ACTIVATE).getKey().getKey());
 			config.addDefault("AvatarState.Sound.Volume", 1);
 			config.addDefault("AvatarState.Sound.Pitch", 1.5);
 			config.addDefault("AvatarState.CanBeChiblocked", false);
