@@ -91,8 +91,9 @@ public abstract class WaterAbility extends ElementalAbility {
 	}
 
 	public static boolean isBendableWaterTempBlock(final TempBlock tempBlock) {
-		return PhaseChange.getFrozenBlocksMap().containsKey(tempBlock) || HeatControl.getMeltedBlocks().contains(tempBlock)
+		boolean legacyDetection = PhaseChange.getFrozenBlocksMap().containsKey(tempBlock) || HeatControl.getMeltedBlocks().contains(tempBlock)
 				|| SurgeWall.SOURCE_BLOCKS.contains(tempBlock) || Torrent.getFrozenBlocks().containsKey(tempBlock);
+		return (tempBlock.isBendableSource() && isWaterbendable(tempBlock.getBlock().getType())) || legacyDetection;
 	}
 
 	public boolean isIcebendable(final Block block) {

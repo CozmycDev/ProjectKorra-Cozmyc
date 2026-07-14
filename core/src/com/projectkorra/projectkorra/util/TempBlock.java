@@ -211,7 +211,7 @@ public class TempBlock {
 	 */
 	public static void removeBlock(final Block block) {
 		if (instances_.containsKey(block)) {
-			instances_.get(block).forEach(t -> {
+			new ArrayList<>(instances_.get(block)).forEach(t -> {
 				REVERT_QUEUE.remove(t);
 				remove(t);
 			});
