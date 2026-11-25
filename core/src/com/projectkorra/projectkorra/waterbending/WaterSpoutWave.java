@@ -112,7 +112,7 @@ public class WaterSpoutWave extends WaterAbility {
 		this.affectedEntities = new ArrayList<>();
 		this.tasks = new ArrayList<>();
 
-		if (!this.bPlayer.canBend(this) || bPlayer.isOnCooldown("WaterSpoutWave")) {
+		if (!this.bPlayer.canBend(this) || this.bPlayer.isOnCooldown("WaterSpoutWave")) {
 			return;
 		}
 

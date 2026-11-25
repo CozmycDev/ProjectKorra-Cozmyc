@@ -89,27 +89,26 @@ public class WaterArmsSpear extends WaterAbility {
 			this.waterArms.switchPreferredArm();
 			this.arm = this.waterArms.getActiveArm();
 
-			if (this.arm.equals(Arm.LEFT)) {
-				if (this.waterArms.isLeftArmCooldown() || this.bPlayer.isOnCooldown("WaterArms_LEFT") || !this.waterArms.displayLeftArm()) {
-					return;
-				} else {
-					if (this.usageCooldownEnabled) {
-						this.bPlayer.addCooldown("WaterArms_LEFT", this.usageCooldown);
-					}
-					this.waterArms.setLeftArmConsumed(true);
-					this.waterArms.setLeftArmCooldown(true);
-				}
+			if (this.arm.equals(Arm.LEFT) && (this.waterArms.isLeftArmCooldown() || !this.waterArms.displayLeftArm())) {
+				return;
 			}
-			if (this.arm.equals(Arm.RIGHT)) {
-				if (this.waterArms.isRightArmCooldown() || this.bPlayer.isOnCooldown("WaterArms_RIGHT") || !this.waterArms.displayRightArm()) {
-					return;
-				} else {
-					if (this.usageCooldownEnabled) {
-						this.bPlayer.addCooldown("WaterArms_RIGHT", this.usageCooldown);
-					}
-					this.waterArms.setRightArmConsumed(true);
-					this.waterArms.setRightArmCooldown(true);
-				}
+			if (this.arm.equals(Arm.RIGHT) && (this.waterArms.isRightArmCooldown() || !this.waterArms.displayRightArm())) {
+				return;
+			}
+
+			final String cooldownName = "WaterArmsSpear_" + this.arm.name();
+			if (this.bPlayer.isOnCooldown(cooldownName)) {
+				return;
+			}
+			if (this.usageCooldownEnabled) {
+				this.bPlayer.addCooldown(cooldownName, this.usageCooldown);
+			}
+			if (this.arm.equals(Arm.LEFT)) {
+				this.waterArms.setLeftArmConsumed(true);
+				this.waterArms.setLeftArmCooldown(true);
+			} else {
+				this.waterArms.setRightArmConsumed(true);
+				this.waterArms.setRightArmCooldown(true);
 			}
 			final Vector dir = this.player.getLocation().getDirection();
 			this.location = this.waterArms.getActiveArmEnd().add(dir.normalize().multiply(1));

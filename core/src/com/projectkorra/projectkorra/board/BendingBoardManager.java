@@ -14,6 +14,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import com.projectkorra.projectkorra.BendingPlayer;
+import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.ComboAbility;
 import com.projectkorra.projectkorra.ability.CoreAbility;
@@ -61,6 +62,29 @@ public final class BendingBoardManager {
 		
 		disabledWorlds.clear();
 		disabledWorlds.addAll(ConfigManager.getConfig().getStringList("Properties.DisabledWorlds"));
+
+		// add built-in sub abilities
+		addCooldownToTrack("IceSpikeBlast", Element.ICE.getColor());
+		addCooldownToTrack("IceSpikePillar", Element.ICE.getColor());
+		addCooldownToTrack("IceSpikePillarField", Element.ICE.getColor());
+		addCooldownToTrack("PhaseChangeFreeze", Element.ICE.getColor());
+		addCooldownToTrack("PhaseChangeMelt", Element.ICE.getColor());
+		addCooldownToTrack("SurgeWave", Element.WATER.getColor());
+		addCooldownToTrack("SurgeWall", Element.WATER.getColor());
+		addCooldownToTrack("TorrentWave", Element.WATER.getColor());
+		addCooldownToTrack("TorrentLaunch", Element.WATER.getColor());
+		addCooldownToTrack("SpoutHop", Element.WATER.getColor());
+		addCooldownToTrack("WaterSpoutWave", Element.WATER.getColor());
+		addCooldownToTrack("CollapsePillar", Element.EARTH.getColor());
+		addCooldownToTrack("CollapseWall", Element.EARTH.getColor());
+		addCooldownToTrack("RaiseEarthPillar", Element.EARTH.getColor());
+		addCooldownToTrack("RaiseEarthWall", Element.EARTH.getColor());
+		addCooldownToTrack("MetalClips Shoot", Element.METAL.getColor());
+		addCooldownToTrack("MetalClips Crush", Element.METAL.getColor());
+		addCooldownToTrack("MetalClips Magnet", Element.METAL.getColor());
+		addCooldownToTrack("BlazeArc", Element.FIRE.getColor());
+		addCooldownToTrack("BlazeRing", Element.FIRE.getColor());
+		addCooldownToTrack("HeatControlExtinguish", Element.FIRE.getColor());
 		
 		if (ConfigManager.languageConfig.get().contains("Board.Extras")) {
 			ConfigurationSection section = ConfigManager.languageConfig.get().getConfigurationSection("Board.Extras");

@@ -246,7 +246,7 @@ public class SurgeWall extends WaterAbility {
 			this.remove();
 			return;
 		} else if (this.duration != 0 && System.currentTimeMillis() > this.getStartTime() + this.duration) {
-			this.bPlayer.addCooldown(this);
+			this.bPlayer.addCooldown("SurgeWall", this.cooldown);
 			this.remove();
 			return;
 		} else if (!isWaterbendable(this.sourceBlock) && !this.settingUp && !this.forming && !this.progressing) {

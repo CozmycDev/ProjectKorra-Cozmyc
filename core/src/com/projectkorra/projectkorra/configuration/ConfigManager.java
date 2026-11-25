@@ -110,9 +110,26 @@ public class ConfigManager {
 
 			if (!config.contains("Board.Extras")) {
 				config.addDefault("Board.Extras.RaiseEarthWall", Element.EARTH.getColor().getName());
+				config.addDefault("Board.Extras.CollapsePillar", Element.EARTH.getColor().getName());
+				config.addDefault("Board.Extras.CollapseWall", Element.EARTH.getColor().getName());
+				config.addDefault("Board.Extras.RaiseEarthPillar", Element.EARTH.getColor().getName());
+				config.addDefault("Board.Extras.MetalClips Shoot", Element.METAL.getColor().getName());
+				config.addDefault("Board.Extras.MetalClips Crush", Element.METAL.getColor().getName());
+				config.addDefault("Board.Extras.MetalClips Magnet", Element.METAL.getColor().getName());
+				config.addDefault("Board.Extras.IceSpikeBlast", Element.ICE.getColor().getName());
+				config.addDefault("Board.Extras.IceSpikePillar", Element.ICE.getColor().getName());
+				config.addDefault("Board.Extras.IceSpikePillarField", Element.ICE.getColor().getName());
+				config.addDefault("Board.Extras.PhaseChangeFreeze", Element.ICE.getColor().getName());
+				config.addDefault("Board.Extras.PhaseChangeMelt", Element.ICE.getColor().getName());
 				config.addDefault("Board.Extras.SurgeWave", Element.WATER.getColor().getName());
+				config.addDefault("Board.Extras.SurgeWall", Element.WATER.getColor().getName());
+				config.addDefault("Board.Extras.TorrentWave", Element.WATER.getColor().getName());
+				config.addDefault("Board.Extras.TorrentLaunch", Element.WATER.getColor().getName());
 				config.addDefault("Board.Extras.SpoutHop", Element.WATER.getColor().getName());
-				config.addDefault("Board.Extras.IceSpikeField", Element.ICE.getColor().getName());
+				config.addDefault("Board.Extras.WaterSpoutWave", Element.WATER.getColor().getName());
+				config.addDefault("Board.Extras.BlazeArc", Element.FIRE.getColor().getName());
+				config.addDefault("Board.Extras.BlazeRing", Element.FIRE.getColor().getName());
+				config.addDefault("Board.Extras.HeatControlExtinguish", Element.FIRE.getColor().getName());
 			}
 
 			config.addDefault("Extras.Water.NightMessage", "Your waterbending has become empowered due to the moon rising.");
@@ -1301,6 +1318,7 @@ public class ConfigManager {
 			config.addDefault("Abilities.Water.WaterSpout.Interval", 50);
 			config.addDefault("Abilities.Water.WaterSpout.BlockSpiral", true);
 			config.addDefault("Abilities.Water.WaterSpout.Particles", false);
+			config.addDefault("Abilities.Water.WaterSpout.DynamicCooldown", false);
 			config.addDefault("Abilities.Water.WaterSpout.SpoutHop.Enabled", true);
 			config.addDefault("Abilities.Water.WaterSpout.SpoutHop.Power", 0.85);
 			config.addDefault("Abilities.Water.WaterSpout.SpoutHop.Cooldown", 0);

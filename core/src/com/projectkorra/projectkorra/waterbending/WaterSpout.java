@@ -38,6 +38,7 @@ public class WaterSpout extends WaterAbility {
 	private long cooldown;
 	@Attribute(Attribute.DURATION) @DayNightFactor
 	private long duration;
+	private boolean dynamicCooldown;
 	private long startTime;
 	private double rotation;
 	@Attribute(Attribute.HEIGHT) @DayNightFactor(factor = 1.3F)
@@ -67,6 +68,10 @@ public class WaterSpout extends WaterAbility {
 		this.height = getConfig().getDouble("Abilities.Water.WaterSpout.Height");
 		this.interval = getConfig().getLong("Abilities.Water.WaterSpout.Interval");
 		this.duration = getConfig().getLong("Abilities.Water.WaterSpout.Duration");
+		this.dynamicCooldown = getConfig().getBoolean("Abilities.Water.WaterSpout.DynamicCooldown"); // any unused duration from spout is removed from the cooldown
+		if (this.duration == 0) {
+			this.dynamicCooldown = false;
+		}
 		this.startTime = System.currentTimeMillis();
 
 		this.canSpoutHop = getConfig().getBoolean("Abilities.Water.WaterSpout.SpoutHop.Enabled");
@@ -77,6 +82,10 @@ public class WaterSpout extends WaterAbility {
 		this.recalculateAttributes();
 		final WaterSpoutWave spoutWave = new WaterSpoutWave(player, WaterSpoutWave.AbilityType.CLICK);
 		if (spoutWave.isStarted() && !spoutWave.isRemoved()) {
+			return;
+		}
+
+		if (this.bPlayer.isOnCooldown("WaterSpout")) {
 			return;
 		}
 
@@ -101,13 +110,26 @@ public class WaterSpout extends WaterAbility {
 		this.start();
 	}
 
+	private void addSpoutCooldown() {
+		if (!this.dynamicCooldown) {
+			this.bPlayer.addCooldown(this);
+			return;
+		}
+
+		long reducedCooldown = this.cooldown - (this.duration - (System.currentTimeMillis() - this.startTime));
+		if (reducedCooldown < 0L) {
+			reducedCooldown = 0L;
+		}
+		this.bPlayer.addCooldown(this, reducedCooldown);
+	}
+
 	private void hop() {
 		if (player.isSneaking() && !bPlayer.isOnCooldown("SpoutHop") && canSpoutHop) {
 			Vector push = player.getEyeLocation().getDirection().multiply(spoutHopPower);
 			GeneralMethods.setVelocity(this, player, push);
 			bPlayer.addCooldown("SpoutHop", spoutHopCooldown);
 		}
-		this.bPlayer.addCooldown(this);
+		this.addSpoutCooldown();
 	}
 
 	private void displayWaterSpiral(final Location location) {
@@ -169,7 +191,7 @@ public class WaterSpout extends WaterAbility {
 				location = this.base.getLocation();
 				final double heightRemoveThreshold = 2;
 				if (!this.isWithinMaxSpoutHeight(location, heightRemoveThreshold)) {
-					this.bPlayer.addCooldown(this);
+					this.addSpoutCooldown();
 					this.remove();
 					return;
 				}
@@ -196,7 +218,7 @@ public class WaterSpout extends WaterAbility {
 					}
 				}
 			} else {
-				this.bPlayer.addCooldown(this);
+				this.addSpoutCooldown();
 				this.remove();
 				return;
 			}

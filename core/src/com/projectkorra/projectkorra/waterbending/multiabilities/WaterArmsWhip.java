@@ -39,6 +39,7 @@ public class WaterArmsWhip extends WaterAbility {
 	private boolean grabbed;
 	private boolean grappleRespectRegions;
 	private boolean usageCooldownEnabled;
+	private String cooldownName;
 	@Attribute("WhipLength")
 	private int whipLength;
 	private int whipLengthWeak;
@@ -95,18 +96,23 @@ public class WaterArmsWhip extends WaterAbility {
 		switch (ability) {
 			case PULL:
 				this.usageCooldown = getConfig().getLong("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Pull");
+				this.cooldownName = "WaterArmsPull";
 				break;
 			case PUNCH:
 				this.usageCooldown = getConfig().getLong("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Punch");
+				this.cooldownName = "WaterArmsPunch";
 				break;
 			case GRAPPLE:
 				this.usageCooldown = getConfig().getLong("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Grapple");
+				this.cooldownName = "WaterArmsGrapple";
 				break;
 			case GRAB:
 				this.usageCooldown = getConfig().getLong("Abilities.Water.WaterArms.Arms.Cooldowns.UsageCooldown.Grab");
+				this.cooldownName = "WaterArmsGrab";
 				break;
 			default:
 				this.usageCooldown = 200;
+				this.cooldownName = "WaterArmsWhip";
 
 		}
 		final WaterArmsWhip waw = getAbility(player, WaterArmsWhip.class);
@@ -138,26 +144,24 @@ public class WaterArmsWhip extends WaterAbility {
 			this.time = System.currentTimeMillis() + this.grabDuration;
 			this.playerHealth = this.player.getHealth();
 
-			if (this.arm.equals(Arm.LEFT)) {
-				if (this.waterArms.isLeftArmCooldown() || this.bPlayer.isOnCooldown("WaterArms_LEFT")) {
-					return;
-				} else {
-					if (this.usageCooldownEnabled) {
-						this.bPlayer.addCooldown("WaterArms_LEFT", this.usageCooldown);
-					}
-					this.waterArms.setLeftArmCooldown(true);
-				}
+			if (this.arm.equals(Arm.LEFT) && this.waterArms.isLeftArmCooldown()) {
+				return;
+			}
+			if (this.arm.equals(Arm.RIGHT) && this.waterArms.isRightArmCooldown()) {
+				return;
 			}
 
-			if (this.arm.equals(Arm.RIGHT)) {
-				if (this.waterArms.isRightArmCooldown() || this.bPlayer.isOnCooldown("WaterArms_RIGHT")) {
-					return;
-				} else {
-					if (this.usageCooldownEnabled) {
-						this.bPlayer.addCooldown("WaterArms_RIGHT", this.usageCooldown);
-					}
-					this.waterArms.setRightArmCooldown(true);
-				}
+			final String cooldownName = this.cooldownName + "_" + this.arm.name();
+			if (this.bPlayer.isOnCooldown(cooldownName)) {
+				return;
+			}
+			if (this.usageCooldownEnabled) {
+				this.bPlayer.addCooldown(cooldownName, this.usageCooldown);
+			}
+			if (this.arm.equals(Arm.LEFT)) {
+				this.waterArms.setLeftArmCooldown(true);
+			} else {
+				this.waterArms.setRightArmCooldown(true);
 			}
 		} else {
 			return;

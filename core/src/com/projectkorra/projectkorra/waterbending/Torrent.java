@@ -113,15 +113,18 @@ public class Torrent extends WaterAbility {
 		final Torrent oldTorrent = getAbility(player, Torrent.class);
 		if (oldTorrent != null) {
 			if (!oldTorrent.sourceSelected) {
+				final boolean startingLaunch = !oldTorrent.launching && !oldTorrent.launch;
 				oldTorrent.use();
-				this.bPlayer.addCooldown("Torrent", oldTorrent.cooldown);
+				if (startingLaunch) {
+					this.bPlayer.addCooldown("TorrentLaunch", oldTorrent.cooldown);
+				}
 				return;
 			} else {
 				oldTorrent.remove();
 			}
 		}
 
-		if (this.bPlayer.isOnCooldown("Torrent")) {
+		if (this.bPlayer.isOnCooldown("TorrentLaunch")) {
 			return;
 		}
 

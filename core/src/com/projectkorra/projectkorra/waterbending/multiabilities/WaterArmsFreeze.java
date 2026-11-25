@@ -59,26 +59,24 @@ public class WaterArmsFreeze extends IceAbility {
 			this.waterArms.switchPreferredArm();
 			this.arm = this.waterArms.getActiveArm();
 
-			if (this.arm.equals(Arm.LEFT)) {
-				if (this.waterArms.isLeftArmCooldown() || this.bPlayer.isOnCooldown("WaterArms_LEFT")) {
-					return;
-				} else {
-					if (this.usageCooldownEnabled) {
-						this.bPlayer.addCooldown("WaterArms_LEFT", this.usageCooldown);
-					}
-					this.waterArms.setLeftArmCooldown(true);
-				}
+			if (this.arm.equals(Arm.LEFT) && this.waterArms.isLeftArmCooldown()) {
+				return;
+			}
+			if (this.arm.equals(Arm.RIGHT) && this.waterArms.isRightArmCooldown()) {
+				return;
 			}
 
-			if (this.arm.equals(Arm.RIGHT)) {
-				if (this.waterArms.isRightArmCooldown() || this.bPlayer.isOnCooldown("WaterArms_RIGHT")) {
-					return;
-				} else {
-					if (this.usageCooldownEnabled) {
-						this.bPlayer.addCooldown("WaterArms_RIGHT", this.usageCooldown);
-					}
-					this.waterArms.setRightArmCooldown(true);
-				}
+			final String cooldownName = "WaterArmsFreeze_" + this.arm.name();
+			if (this.bPlayer.isOnCooldown(cooldownName)) {
+				return;
+			}
+			if (this.usageCooldownEnabled) {
+				this.bPlayer.addCooldown(cooldownName, this.usageCooldown);
+			}
+			if (this.arm.equals(Arm.LEFT)) {
+				this.waterArms.setLeftArmCooldown(true);
+			} else {
+				this.waterArms.setRightArmCooldown(true);
 			}
 
 			final Vector dir = this.player.getLocation().getDirection();

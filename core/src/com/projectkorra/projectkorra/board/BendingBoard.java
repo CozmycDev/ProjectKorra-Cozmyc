@@ -18,6 +18,9 @@ import com.projectkorra.projectkorra.BendingPlayer;
 import com.projectkorra.projectkorra.Element;
 import com.projectkorra.projectkorra.ProjectKorra;
 import com.projectkorra.projectkorra.ability.CoreAbility;
+import com.projectkorra.projectkorra.ability.util.MultiAbilityManager;
+import com.projectkorra.projectkorra.ability.util.MultiAbilityManager.MultiAbilityInfo;
+import com.projectkorra.projectkorra.ability.util.MultiAbilityManager.MultiAbilityInfoSub;
 import com.projectkorra.projectkorra.configuration.ConfigManager;
 
 import net.md_5.bungee.api.ChatColor;
@@ -195,11 +198,17 @@ public class BendingBoard {
 		} else {
 			CoreAbility coreAbility = CoreAbility.getAbility(ChatColor.stripColor(ability));
 			if (coreAbility == null) { // MultiAbility
-				if (cooldown || bendingPlayer.isOnCooldown(ability)) {
-					sb.append(ChatColor.STRIKETHROUGH);
+				final String handCooldowns = getHandCooldownSuffix(ability);
+				if (handCooldowns != null) {
+					// show the cooldown per hand for abilities keyed LEFT/RIGHT, like waterarms
+					sb.append(ability).append(handCooldowns);
+				} else {
+					if (cooldown || bendingPlayer.isOnCooldown(ability)) {
+						sb.append(ChatColor.STRIKETHROUGH);
+					}
+
+					sb.append(ability);
 				}
-				
-				sb.append(ability);
 			} else {
 				sb.append(coreAbility.getMovePreviewWithoutCooldownTimer(player, cooldown));
 			}
@@ -207,7 +216,44 @@ public class BendingBoard {
 		
 		slots[slot - 1].update((slot == selectedSlot ? selectedColor : altColor) + prefix, sb.toString());
 	}
-	
+
+	// Style for left/right hand cooldowns
+	private String getHandCooldownSuffix(final String ability) {
+		if (!MultiAbilityManager.hasMultiAbilityBound(player)) {
+			return null;
+		}
+
+		final String bound = MultiAbilityManager.getBoundMultiAbility(player);
+		final MultiAbilityInfo info = bound == null ? null : MultiAbilityManager.getMultiAbility(bound);
+		if (info == null) {
+			return null;
+		}
+
+		final String name = ChatColor.stripColor(ability);
+		for (final MultiAbilityInfoSub sub : info.getAbilities()) {
+			if (!sub.getName().equalsIgnoreCase(name)) {
+				continue;
+			}
+
+			final String attack = bound + sub.getName();
+			final boolean left = bendingPlayer.isOnCooldown(attack + "_LEFT");
+			final boolean right = bendingPlayer.isOnCooldown(attack + "_RIGHT");
+			if (!left && !right) {
+				return null;
+			}
+
+			final StringBuilder sb = new StringBuilder();
+			sb.append(ChatColor.RESET).append(ChatColor.DARK_GRAY).append(" [");
+			sb.append(left ? ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "L" + ChatColor.RESET : ChatColor.GRAY + "L");
+			sb.append(ChatColor.DARK_GRAY).append('/');
+			sb.append(right ? ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "R" + ChatColor.RESET : ChatColor.GRAY + "R");
+			sb.append(ChatColor.DARK_GRAY).append(']');
+			return sb.toString();
+		}
+
+		return null;
+	}
+
 	private int updateSelected(int newSlot) {
 		int oldSlot = selectedSlot;
 		selectedSlot = newSlot;
